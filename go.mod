@@ -1,3 +1,3 @@
-module lets-go.nickfrench.dev
+module url-shortener.nickfrench.dev
 
 go 1.24.1
