@@ -27,12 +27,18 @@ func shortenerView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	msg := fmt.Sprintf("Display a specific shortened URL with ID %d...", id)
-	w.Write([]byte(msg))
+	fmt.Fprintf(w, "Display a specific shortened URL with ID %d...", id)
 }
 
 func shortenerCreate(w http.ResponseWriter, r *http.Request) {
+
 	w.Write([]byte("Display a form for creating a shortened URL..."))
+}
+
+func shortenerCreatePost(w http.ResponseWriter, r *http.Request) {
+
+	w.WriteHeader(http.StatusCreated)
+	w.Write([]byte("Save a new shortened URL..."))
 }
 
 func main() {
@@ -40,11 +46,12 @@ func main() {
 	mux := http.NewServeMux()
 
 	// Define routes.
-	mux.HandleFunc("/{$}", home)
-	mux.HandleFunc("/health", health)
-	mux.HandleFunc("/shortener", shortenerList)
-	mux.HandleFunc("/shortener/view/{id}", shortenerView) // Including '/view/...' to avoid overlaps
-	mux.HandleFunc("/shortener/create", shortenerCreate)
+	mux.HandleFunc("GET /{$}", home)
+	mux.HandleFunc("GET /health", health)
+	mux.HandleFunc("GET /shortener", shortenerList)
+	mux.HandleFunc("GET /shortener/view/{id}", shortenerView) // Including '/view/...' to avoid overlaps
+	mux.HandleFunc("GET /shortener/create", shortenerCreate)
+	mux.HandleFunc("POST /shortener/create", shortenerCreatePost)
 
 	// Note log instead of fmt.PrintLn
 	log.Print("starting server on :4000")
