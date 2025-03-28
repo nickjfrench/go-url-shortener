@@ -1,0 +1,27 @@
+{{define "base"}}
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+
+    <!-- Project Imports -->
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link rel='shortcut icon' href='/static/img/favicon.webp' type='image/x-icon'>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <title>{{template "title" .}} - TrimLink - The URL Shortener</title>
+</head>
+<body>
+    <header>
+        {{template "nav" .}}
+    </header>
+    <main>
+        {{template "main" .}}
+    </main>
+    <footer >
+        {{template "footer" .}}
+    </footer>
+</body>
+</html>
+{{end}}

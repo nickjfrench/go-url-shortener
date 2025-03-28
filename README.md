@@ -11,4 +11,8 @@ For personal interest, I changed the scope from a `Code Snippet Hosting` to a `U
 ## Project Structure
 
 Using the [Go Doc's Server Project](https://go.dev/doc/modules/layout#server-project) file structure.
-TLDR: `internal` represents packages used by the server. `cmd/web` represents the Go code to run the server.
+
+- `internal` represents non-application specific and re-usable code. 
+`internal` cannot be exported, meaning it's only accessible by this project. 
+- `cmd/web` represents the Go code for the web-server.
+- `ui` represents the ui assets.

@@ -1,0 +1,38 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction:column;
+    font-family: "Inter", sans-serif;
+    background-color:#121212;
+}
+
+nav {
+    text-align: center;
+    padding: 1px;
+    margin:auto;
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+    align-items:center;
+    justify-content: center;
+}
+
+main {
+    margin: auto;
+    width: 65%;
+    flex:1;
+}
+
+footer {
+    text-align: center;
+    margin: 1em auto;
+
+}
+
+.elevation-1 {
+    background-color: rgba(255,255,255,0.05);
+}
+
+p, h1, h2, h3, h4, a {
+    color: rgba(255,255,255,0.87);
+}
