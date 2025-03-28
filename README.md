@@ -16,3 +16,9 @@ Using the [Go Doc's Server Project](https://go.dev/doc/modules/layout#server-pro
 `internal` cannot be exported, meaning it's only accessible by this project. 
 - `cmd/web` represents the Go code for the web-server.
 - `ui` represents the ui assets.
+
+## Credits
+
+- Logo quickly built from two free assets:
+  - https://www.vecteezy.com/vector-art/6758316-chain-link-icon-vector
+  - https://www.vecteezy.com/vector-art/4897465-scissors-glyph-icon
