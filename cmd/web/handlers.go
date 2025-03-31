@@ -3,19 +3,20 @@ package main
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"strconv"
 )
 
-func health(w http.ResponseWriter, r *http.Request) {
+func (app *application) health(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", "Go")
+	app.logNewRequest(r)
 
 	w.Write([]byte("OK"))
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", "Go")
+	app.logNewRequest(r)
 
 	// Base must be first
 	files := []string{
@@ -27,44 +28,47 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Print(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, r, err)
 		return
 	}
 
 	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
-		log.Print(err.Error())
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.serverError(w, r, err)
 	}
 }
 
-func shortenerList(w http.ResponseWriter, r *http.Request) {
+func (app *application) shortenerList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", "Go")
+	app.logNewRequest(r)
 
 	w.Write([]byte("Display all shortened URLs."))
 }
 
-func shortenerView(w http.ResponseWriter, r *http.Request) {
+func (app *application) shortenerView(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", "Go")
+	app.logNewRequest(r)
 
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil || id < 1 {
-		http.NotFound(w, r)
+		app.serverError(w, r, err)
+		app.clientError(w, 404)
 		return
 	}
 
 	fmt.Fprintf(w, "Display a specific shortened URL with ID %d...", id)
 }
 
-func shortenerCreate(w http.ResponseWriter, r *http.Request) {
+func (app *application) shortenerCreate(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", "Go")
+	app.logNewRequest(r)
 
 	w.Write([]byte("Display a form for creating a new shortened URL..."))
 }
 
-func shortenerCreatePost(w http.ResponseWriter, r *http.Request) {
+func (app *application) shortenerCreatePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", "Go")
+	app.logNewRequest(r)
 
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("Save a new shortened URL..."))
