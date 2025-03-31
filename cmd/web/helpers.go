@@ -25,6 +25,13 @@ func (app *application) serverError(w http.ResponseWriter, r *http.Request, err 
 	app.clientError(w, 500)
 }
 
+// Logs a new slog.Debug for a new http request.
 func (app *application) logNewRequest(r *http.Request) {
-	app.logger.Debug("New Request", slog.Any("method", r.Method), slog.Any("url", r.URL.RequestURI()))
+	var (
+		method = r.Method
+		uri    = r.URL.RequestURI()
+	)
+
+	app.logger.Debug("New Request", slog.String("method", method), slog.String("uri", uri))
+
 }
